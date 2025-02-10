@@ -127,18 +127,6 @@ class LoginPage extends StatelessWidget {
         context,
         MaterialPageRoute(builder: (context) => MainScreen()),
       );
-                    // if(email == "admin" && password == "1234"){
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => HomeScreen()),
-                    //   );
-                    // }
-                    // else  {
-                    //    Navigator.push(
-                    //      context,
-                    //      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    //    );
-                    // }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2D614E),
