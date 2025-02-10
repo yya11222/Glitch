@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/user_side/scan_page.dart';
 // change
 
 class MainScreen extends StatelessWidget {
@@ -150,18 +151,66 @@ class MainScreen extends StatelessWidget {
             ),
 
             // Bottom Navigation
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              color: const Color(0xFF2D614E),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(Icons.home, color: Colors.white),
-                  Icon(Icons.qr_code_scanner, color: Colors.white),
-                  Icon(Icons.person_outline, color: Colors.white),
-                ],
-              ),
+            // Container(
+            //   padding: const EdgeInsets.symmetric(vertical: 16),
+            //   color: const Color(0xFF2D614E),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: const [
+            //       Icon(Icons.home, color: Colors.white),
+            //       Icon(Icons.qr_code_scanner, color: Colors.white),
+            //       Icon(Icons.person_outline, color: Colors.white),
+            //     ],
+            //   ),
+            // ),
+            // Bottom Navigation with QR Scan Button
+Container(
+  padding: const EdgeInsets.symmetric(vertical: 16),
+  color: const Color(0xFF2D614E),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      IconButton(
+        icon: const Icon(Icons.home, color: Colors.white),
+        onPressed: () {
+          // Add navigation for Home (if needed)
+        },
+      ),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ScanPage()),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        child: Row(
+          children: const [
+            Icon(Icons.qr_code_scanner, color: Color(0xFF2D614E)),
+            SizedBox(width: 8),
+            Text(
+              "Scan QR",
+              style: TextStyle(color: Color(0xFF2D614E), fontWeight: FontWeight.bold),
             ),
+          ],
+        ),
+      ),
+      IconButton(
+        icon: const Icon(Icons.person_outline, color: Colors.white),
+        onPressed: () {
+          // Add navigation for Profile (if needed)
+        },
+      ),
+    ],
+  ),
+),
+
           ],
         ),
       ),
