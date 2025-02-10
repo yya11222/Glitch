@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/admin_side/home_screen.dart';
 import 'package:flutter_application_1/createacc_page.dart';
 import 'package:flutter_application_1/user_side/main_screen.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
