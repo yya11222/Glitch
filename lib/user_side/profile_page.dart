@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class EditProfileScreen extends StatelessWidget {
           ),
         ],
         title: const Text(
-          'Edit Profile',
+          'Profile',
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -65,17 +65,17 @@ class EditProfileScreen extends StatelessWidget {
             // Form Fields
             _buildFormField(
               label: 'Name',
-              value: 'Charlotte King',
+              value: 'ABCD',
               icon: null,
             ),
             _buildFormField(
               label: 'E mail address',
-              value: '@johnkinggraphics.gmail.com',
+              value: 'abcd@gmail.com',
               icon: null,
             ),
             _buildFormField(
               label: 'User name',
-              value: '@johnkinggraphics',
+              value: 'ABCD',
               icon: null,
             ),
             _buildFormField(
@@ -86,7 +86,7 @@ class EditProfileScreen extends StatelessWidget {
             ),
             _buildFormField(
               label: 'Phone number',
-              value: '+91 6895312',
+              value: '0000000000',
               icon: null,
             ),
 

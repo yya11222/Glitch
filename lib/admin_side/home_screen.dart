@@ -118,7 +118,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _buildBottomNavItem(icon: Icons.home, isSelected: true),
-                  _buildBottomNavItem(icon: Icons.qr_code_scanner),
+                  _buildScanQRButton(),  // Updated: QR scan button instead of icon
                   _buildBottomNavItem(icon: Icons.person_outline),
                 ],
               ),
@@ -166,6 +166,17 @@ class HomeScreen extends StatelessWidget {
       icon,
       color: isSelected ? Colors.white : Colors.white.withOpacity(0.7),
       size: 28,
+    );
+  }
+
+  // Button for QR Scanner
+  Widget _buildScanQRButton() {
+    return IconButton(
+      icon: const Icon(Icons.qr_code_scanner, color: Colors.white, size: 30),
+      onPressed: () {
+        // You can implement QR code scanning functionality here
+        print('QR Code Scanner button pressed!');
+      },
     );
   }
 }

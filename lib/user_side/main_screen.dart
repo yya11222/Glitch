@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/user_side/profile_page.dart';
 import 'package:flutter_application_1/user_side/scan_page.dart';
 // change
 
@@ -205,6 +206,10 @@ Container(
         icon: const Icon(Icons.person_outline, color: Colors.white),
         onPressed: () {
           // Add navigation for Profile (if needed)
+          Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfilePage()),
+      );
         },
       ),
     ],

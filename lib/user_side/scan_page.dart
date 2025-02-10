@@ -9,35 +9,52 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
-  String scannedData = "Scan a QR code";
+  String? extractedData; // Stores extracted QR data
+  String? displayMessage; // Stores the data to show the user
 
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (controller != null) {
-      controller!.pauseCamera();
-      controller!.resumeCamera();
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        extractedData = scanData.code; // Extracts the QR content
+      });
+
+      // You can now use extractedData to provide more info to the user
+      _processQRCode(extractedData);
+    });
+  }
+
+  // This function simulates processing the extracted QR data
+  void _processQRCode(String? data) {
+    if (data != null) {
+      if (data.startsWith("USER:")) {
+        // Simulate fetching user info based on the QR code
+        String userId = data.replaceFirst("USER:", "");
+        displayMessage = "User ID: $userId\nFetching user profile...";
+        // Here, you can call an API or a local DB to get user details
+        setState(() {
+          // Simulate profile info after fetching
+          displayMessage = "User Profile:\nName: John Doe\nEmail: john@example.com";
+        });
+      } else if (Uri.tryParse(data)?.hasAbsolutePath ?? false) {
+        displayMessage = "Detected URL: $data";
+      } else {
+        displayMessage = "Raw QR Data: $data";
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("QR Code Scanner")),
+      appBar: AppBar(title: Text("QR Detection & Data Extraction")),
       body: Column(
-        children: [
+        children: <Widget>[
           Expanded(
             flex: 5,
             child: QRView(
               key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
-              overlay: QrScannerOverlayShape(
-                borderColor: Colors.blue,
-                borderRadius: 10,
-                borderLength: 30,
-                borderWidth: 10,
-                cutOutSize: 250,
-              ),
+              onQRViewCreated: _onQRViewCreated, // Detects and extracts QR data
             ),
           ),
           Expanded(
@@ -46,14 +63,27 @@ class _ScanPageState extends State<ScanPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Scanned Data:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 5),
-                  Text(scannedData, style: TextStyle(fontSize: 18, color: Colors.green)),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () => controller?.resumeCamera(),
-                    child: Text("Scan Again"),
+                  Text(
+                    extractedData ?? "Scan a QR Code",
+                    style: TextStyle(fontSize: 18),
                   ),
+                  const SizedBox(height: 10),
+                  if (displayMessage != null)
+                    Text(
+                      displayMessage!,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  if (extractedData != null)
+                    ElevatedButton(
+                      onPressed: () {
+                        _processQRCode(extractedData);
+                      },
+                      child: Text("Process Extracted Data"),
+                    ),
                 ],
               ),
             ),
@@ -61,15 +91,6 @@ class _ScanPageState extends State<ScanPage> {
         ],
       ),
     );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        scannedData = scanData.code ?? "No Data Found";
-      });
-    });
   }
 
   @override
